@@ -34,6 +34,7 @@ struct DiceGameView: View {
                                 .cornerRadius(8)
                         }
                         .buttonStyle(.plain)
+                        .disabled(rollCount == 0)
                     }
                 }
             }
