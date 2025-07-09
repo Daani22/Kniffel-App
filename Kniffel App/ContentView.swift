@@ -1,5 +1,15 @@
 import SwiftUI
 
+#if canImport(UIKit)
+extension View {
+    /// Dismisses the software keyboard in any currently active UIApplication scene.
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                        to: nil, from: nil, for: nil)
+    }
+}
+#endif
+
 struct ContentView: View {
     // MARK: - State Variablen
     @State private var players: [String] = ["Spieler 1", "Spieler 2", "Spieler 3"]
@@ -194,6 +204,17 @@ struct ContentView: View {
 
             Spacer()
 
+        }
+        .onTapGesture {
+            hideKeyboard()
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Fertig") {
+                    hideKeyboard()
+                }
+            }
         }
         .tabItem {
             Label("Kniffelblock", systemImage: "list.dash")
